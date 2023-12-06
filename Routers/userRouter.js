@@ -28,23 +28,36 @@ userRouter.post('/', expressAsyncHandler(async (req, res) => {
 ))
 
 userRouter.post('/register', expressAsyncHandler(async (req, res) => {
+  // console.log("req------>",req);
 
-  const user = new UserLists({
-    firstName: req.body.fName,
-    lastName: req.body.lName,
-    email: req.body.email,
-    password: bcrypt.hashSync(req.body.password),
-  });
-  const createdUser = await user.save();
-  res.send({
-    id: createdUser.id,
-    fName: createdUser.firstName,
-    lName: createdUser.lastName,
-    email: createdUser.email,
-    password: createdUser.password,
+  const user = await UserLists.findOne({ email: req.body.email })
 
-  });
+  console.log("user------>",user);
 
+  if(user) {
+
+    res.status(404).send({ message: 'Your Email is already have been Registered' });
+  }
+  else {
+    const user = new UserLists({
+      // firstName: req.body.fName,
+      // lastName: req.body.lName,
+      email: req.body.email,
+      password: bcrypt.hashSync(req.body.password),
+    });
+    const createdUser = await user.save();
+    res.send({
+      id: createdUser.id,
+      // fName: createdUser.firstName,
+      // lName: createdUser.lastName,
+      email: createdUser.email,
+      password: createdUser.password,
+  
+    });
+  
+  }
+
+  
 }))
 
 userRouter.post('/checkemail', expressAsyncHandler(async (req, res) => {
