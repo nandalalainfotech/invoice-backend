@@ -65,7 +65,7 @@ invoiceRouter.get(
     datas.push(lastObject);
     var html = fs.readFileSync(`pdf.html`, "utf8");
     var options = {
-      format: "A3",
+      format: "A4",
       orientation: "portrait",
       border: "10mm",
     };
@@ -111,15 +111,16 @@ invoiceRouter.get(
     datas.push(lastObject);
     var html = fs.readFileSync(`pdfTemplates/${fileName}`, "utf8");
     var options = {
-      format: "A3",
+      format: "A4",
       orientation: "portrait",
       border: "10mm",
     };
     let data = lastObject;
 
+
     let objects = {
       clientname: data.clientName,
-      companyName: data.CompanyName,
+      companyName: data.companyname,
       mobileNo: data.MobileNo,
       client: data.clientName,
       clientemail: data.clientEmail,
@@ -128,26 +129,26 @@ invoiceRouter.get(
       invoicenumber: data.invoiceNo,
       changecurrency: data.changeCurrency,
       createdate: data.createdDate,
-      duedate: data.Duedate,
+      duedate: data.dueDate,
       tax: data.Tax,
       discount: data.Discount,
       Shipping: data.shipping,
       balance: data.Balance,
       amount: data.Amount,
       total: data.Total,
-      subTotal: data.subtotal,
+      subTotal: data.subTotal,
       email: data.Email,
       companyAddress: data.Company,
+      Image: data.Image
     }
 
     var document = {
       type: "file", // 'file' or 'buffer'
-      target: "blank",
       template: html,
       context: {
         object: objects,
         invoice: data,
-        invoiceProducts: data.test,
+        invoiceProducts: data.products,
       },
       path: "./output.pdf", // it is not required if type is buffer
     };
