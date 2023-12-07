@@ -25,4 +25,16 @@ productRouter.get('/getProduct', expressAsyncHandler(async (req, res) => {
 
 }));
 
+
+productRouter.delete('/deleteProducts/:id', expressAsyncHandler(async (req, res) => {
+    const productId = req.params.id;
+    const product = await Product.findById(productId);
+    if (product) {
+      const deleteProduct = await product.deleteOne();
+      res.send(deleteProduct);
+    } else {
+      res.status(404).send({ message: "Product Not Found" });
+    }
+  }));
+
 export default productRouter;
