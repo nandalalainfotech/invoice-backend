@@ -1,237 +1,281 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <meta charset="utf-8" />
+    <style>
+      table,
+      th,
+      td {
+        text-align: center;
+        text-align: justify;
+        /* margin-left: 93px; */
+        font-size: 20px;
+      }
 
-<head>
-  <meta charset="utf-8" />
-  <style>
-    table,
-    th,
-    td {
-      text-align: center;
-      text-align: justify;
-      /* margin-left: 93px; */
-      font-size: 20px;
-    }
+      .table-cell {
+        position: relative;
+      }
 
-    .table-cell {
-      position: relative;
-    }
+      table {
+        border-spacing: 0;
+      }
 
-    table {
-      border-spacing: 0;
-    }
+      .tbl,
+      .head,
+      .head.tr.th {
+        border: 1px solid black;
+        border-collapse: collapse;
+        text-align: center;
+      }
 
-    .tbl,
-    .head,
-    .head.tr.th {
-      border: 1px solid black;
-      border-collapse: collapse;
-      text-align: center;
-    }
+      .head,
+      .head {
+        padding-top: 10px;
+        padding-bottom: 20px;
+        padding-left: 30px;
+        padding-right: 40px;
+      }
 
-    .head,
-    .head {
-      padding-top: 10px;
-      padding-bottom: 20px;
-      padding-left: 30px;
-      padding-right: 40px;
-    }
+      .head1 {
+        padding-top: 10px;
+        padding-bottom: 20px;
+        padding-left: 480px;
+        padding-right: 40px;
+      }
+    </style>
+  </head>
 
-    .head1 {
-      padding-top: 10px;
-      padding-bottom: 20px;
-      padding-left: 480px;
-      padding-right: 40px;
-    }
-  </style>
-</head>
+  <body>
+    <br /><br /><br />
+    <div
+      style="
+        border-style: solid;
+        border-color: rgb(216, 6, 48);
+        border-right-style: none;
+        border-left-style: none;
+        border-bottom: none;
+      "
+    ></div>
 
-<body>
-
-  <br /><br /><br />
-  <div style="
-      border-style: solid;
-      border-color: rgb(216, 6, 48);
-      border-right-style: none;
-      border-left-style: none;
-      border-bottom: none;
-    "></div>
-
-  <table style="border: none; width: 100%;table-layout: fixed ">
-
-    <tr>
-      <th colspan="3" rowspan="1" style="text-align: left;">
+    <table style="border: none; width: 100%; table-layout: fixed">
+      {{#object}}
+      <tr>
+        <th colspan="3" rowspan="1" style="text-align: left">
+          <img
+            class="img-responsive"
+            alt="iamgurdeeposahan"
+            src="{{this.Image}}"
+            style="width: 150px; border-radius: 50%; height: 150px"
+          />
+        </th>
+        <th colspan="3" rowspan="1" style="text-align: left"></th>
+        <th colspan="3" rowspan="1" style="text-align: left"></th>
+        <th colspan="3" rowspan="1" style="text-align: right">
+          <h1>INVOICE</h1>
+          <p>
+            Invoice No:
+            <span style="text-align: left"> {{this.invoiceNo}}</span>
+          </p>
+          <p>
+            Due Date:
+            <span style="text-align: left">{{this.dueDate}}</span>
+          </p>
+          <p>
+            Createdate:
+            <span style="text-align: left">{{this.createdDate}}</span>
+          </p>
+          {{/object}}
+        </th>
+      </tr>
+      <tr></tr>
+    </table>
+    <table style="border: none; width: 100%; table-layout: fixed">
+      <tr style="height: 40px; margin-top: 100px">
         {{#object}}
-        <h1 style="color: rgb(216, 6, 48);">INVOICE</h1>
-        <p> Invoice No:
-          <span style="text-align: left; "> {{this.invoicenumber}}</span>
-
-        </p>
-        <p> Due Date:
-          <span style="text-align: left; ">{{this.duedate}}</span>
-        </p>
-        <p> Createdate:
-          <span style="text-align: left; ">{{this.createdate}}</span>
-        </p>
+        <td
+          style="
+            text-align: left;
+            width: 40px;
+            font-size: 20px;
+            font-weight: 600;
+          "
+        >
+          CompanyName :
+        </td>
+        <td
+          style="
+            text-align: left;
+            width: 40px;
+            font-size: 20px;
+            font-weight: 200;
+          "
+        >
+          {{this.companyname}}
+        </td>
+        <td style="width: 20px"></td>
+        <td style="width: 40px; font-size: 20px; font-weight: 600">
+          ClientName:
+        </td>
+        <td
+          style="
+            text-align: left;
+            width: 40px;
+            font-size: 20px;
+            font-weight: 200;
+          "
+        >
+          {{this.clientName}}
+        </td>
         {{/object}}
-      </th>
-      <th colspan="3" rowspan="1" style="text-align: right;">
+      </tr>
+      <tr style="height: 40px">
+        {{#object}}
+        <td style="width: 40px; font-size: 20px; font-weight: 600">
+          CompanyPhoneNo:
+        </td>
+        <td
+          style="
+            text-align: left;
+            width: 40px;
+            font-size: 20px;
+            font-weight: 200;
+          "
+        >
+          {{this.companymobile}}
+        </td>
+        <td style="width: 10px"></td>
+        <td style="width: 30px; font-size: 20px; font-weight: 600">
+          ClientPhoneNo:
+        </td>
+        <td
+          style="
+            text-align: left;
+            width: 40px;
+            font-size: 20px;
+            font-weight: 200;
+          "
+        >
+          {{this.clientMobileNo}}
+        </td>
+        {{/object}}
+      </tr>
+      <tr style="height: 40px">
+        {{#object}}
+        <td style="width: 40px; font-size: 20px; font-weight: 600">
+          CompanyEmail:
+        </td>
+        <td
+          style="
+            text-align: left;
+            width: 40px;
+            font-size: 20px;
+            font-weight: 200;
+          "
+        >
+          {{this.companyemail}}
+        </td>
+        <td style="width: 10px"></td>
+        <td style="width: 30px; font-size: 20px; font-weight: 600">
+          ClientEmail:
+        </td>
+        <td
+          style="
+            text-align: left;
+            width: 40px;
+            font-size: 20px;
+            font-weight: 200;
+          "
+        >
+          {{this.clientEmail}}
+        </td>
+        {{/object}}
+      </tr>
+      <tr style="height: 40px">
+        {{#object}}
+        <td style="width: 40px; font-size: 20px; font-weight: 600">
+          CompanyAddress:
+        </td>
+        <td
+          style="
+            text-align: left;
+            width: 40px;
+            font-size: 20px;
+            font-weight: 200;
+            word-wrap: break-word;
+            position: fixed;
+            width: 230px;
+          "
+        >
+          {{this.billAddress}}
+        </td>
+        <td style="width: 20px"></td>
+        <td style="width: 40px; font-size: 20px; font-weight: 600">
+          ClientAddress:
+        </td>
+        <td
+          style="
+            text-align: left;
+            width: 40px;
+            font-size: 20px;
+            font-weight: 200;
+            word-wrap: break-word;
+            position: fixed;
+            width: 230px;
+          "
+        >
+          {{this.clientAddress}}
+        </td>
+        {{/object}}
+      </tr>
+    </table>
 
-      </th>
+    <br /><br /><br />
+    <table style="width: 100%">
+      <tr style="background-color: rgb(216, 6, 48)">
+        <th class="head">Invoice</th>
+        <th class="head">Quantity</th>
+        <th class="head">Amount</th>
+        <th class="head">Total</th>
+      </tr>
+      {{#each invoiceProducts}}
+      <tr>
+        <td class="head">{{this.name}}</td>
+        <td class="head">{{this.quantity}}</td>
+        <td class="head">{{this.amount}}</td>
+        <td class="head">{{this.totalamount}}</td>
+      </tr>
+      {{/each}}
+      <tr>
+        <td></td>
+        <td></td>
+        <td class="head">Sub Total:</td>
+        <td class="head">&#x20b9; {{#object}} {{this.subTotal}} {{/object}}</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td class="head">Discount:</td>
+        <td class="head">
+          &#x20b9;{{#each invoice}} {{this.Discount}} {{/each}}
+        </td>
+      </tr>
+      {{#each taxes}}
+      <tr>
+        <td></td>
+        <td></td>
+        <td class="head">{{this.title}}</td>
+        <td class="head">&#x20b9;{{this.amount}}</td>
+      </tr>
+      {{/each}}
 
-      <th colspan="3" rowspan="1" style="text-align: left;"></th>
-      <th colspan="3" rowspan="1" style="text-align: right; ">
-        <img class="img-responsive" alt="iamgurdeeposahan" src="https://bootdey.com/img/Content/avatar/avatar6.png"
-          style="width: 150px; border-radius: 50%; height: 150px;">
-      </th>
-    </tr>
-    <tr></tr>
-    <tr style="height:40px;"></tr>
-
-
-
-
-    <tr style="height:40px; margin-top: 100px;">
-      {{#object}}
-      <th colspan="4" rowspan="1" style="text-align: left; font-size: 20px; font-weight: 600;">
-        CompanyName :
-      </th>
-      <th colspan="3" rowspan="1" style="text-align: left; font-size: 20px; font-weight: 200;">
-        {{this.companyName}}
-      </th>
-      <th colspan="2" rowspan="1" style="text-align: left; font-size: 20px; font-weight: 600;">
-        clientName:
-      </th>
-      <th colspan="3" rowspan="1" style="text-align: left; font-size: 20px; font-weight: 200;">
-        {{this.clientname}}
-      </th>
-      {{/object}}
-    </tr>
-
-    <tr style="height: 40px;">
-      {{#object}}
-      <th colspan="4" rowspan="1" style="text-align: left; font-size: 20px; font-weight: 600;">companyAddress:
-      </th>
-      <th colspan="3" rowspan="1" style="text-align: left; font-size: 20px; font-weight: 200;word-wrap: break-word">
-        {{this.companyAddress}}
-      </th>
-      <th colspan="2" rowspan="1" style="text-align: right; font-size: 20px; font-weight: 600;">clientAddress:
-      </th>
-      <th colspan="3" rowspan="1" style="text-align: left; font-size: 20px; font-weight: 200;">
-        {{this.clientaddress}}
-      </th>
-      {{/object}}
-    </tr>
-
-
-    <tr style="height: 40px;">
-      {{#object}}
-      <th colspan="4" rowspan="1" style="text-align: left; font-size: 20px; font-weight: 600;">CompanyEmail:
-      </th>
-      <th colspan="3" rowspan="1" style="text-align: left; font-size: 20px; font-weight: 200;">
-        {{this.email}}
-      </th>
-      <th colspan="2" rowspan="1" style="text-align: left; font-size: 20px; font-weight: 600;">ClientEmail:
-      </th>
-      <th colspan="3" rowspan="1" style="text-align: left; font-size: 20px; font-weight: 200;">
-        {{this.clientemail}}
-      </th>
-      {{/object}}
-    </tr>
-
-    <tr style="height: 40px;">
-      {{#object}}
-      <th colspan="4" rowspan="1" style="text-align: left; font-size: 20px; font-weight: 600;">CompanyPhoneNo:
-      </th>
-      <th colspan="3" rowspan="1" style="text-align: left; font-size: 20px; font-weight: 200;">
-        {{this.mobileNo}}
-      </th>
-      <th colspan="2" rowspan="1" style="text-align: left; font-size: 20px; font-weight: 600;">ClientPhoneNo:
-      </th>
-      <th colspan="3" rowspan="1" style="text-align: left; font-size: 20px; font-weight: 200;">
-        {{this.clientNumber}}
-      </th>
-      {{/object}}
-    </tr>
-  </table>
-
-  <br /><br /><br />
-  <table style="width: 100%">
-    <tr style="background-color: rgb(216, 6, 48)">
-      <th class="head">Quantity</th>
-      <th class="head">Invoice</th>
-      <th class="head">Rating</th>
-      <th class="head">Amount</th>
-    </tr>
-    {{#each invoiceProducts}}
-    <tr>
-      <td class="head">{{this.qty}}</td>
-      <td class="head">{{this.Desc}}</td>
-      <td class="head">{{this.Rating}}</td>
-      <td class="head">{{this.Amount}}</td>
-    </tr>
-    {{/each}}
-    <tr>
-      <td></td>
-      <td></td>
-      <td class="head"> Sub Total:</td>
-      <td class="head"> &#x20b9;{{#each invoice}}
-        {{this.subtotal}}
-        {{/each}}</td>
-    </tr>
-    <tr>
-      <td></td>
-      <td></td>
-      <td class="head"> Discount:</td>
-      <td class="head"> &#x20b9;{{#each invoice}}
-        {{this.Discount}}
-        {{/each}}</td>
-    </tr>
-    <tr>
-      <td></td>
-      <td></td>
-      <td class="head"> Tax:</td>
-      <td class="head"> &#x20b9;{{#each invoice}}
-        {{this.Tax}}
-        {{/each}}</td>
-    </tr>
-    <tr>
-      <td></td>
-      <td></td>
-      <td class="head"> shipping:</td>
-      <td class="head"> &#x20b9;{{#each invoice}}
-        {{this.shipping}}
-        {{/each}}</td>
-    </tr>
-    <tr>
-      <td></td>
-      <td></td>
-      <td class="head">Total:</td>
-      <td class="head">{{#each invoice}}
-        {{this.Total}}
-        {{/each}}</td>
-    </tr>
-    <tr>
-      <td></td>
-      <td></td>
-      <td class="head"> Paid Amount:</td>
-      <td class="head"> {{#each invoice}}
-        {{this.Amount}}
-        {{/each}}</td>
-    </tr>
-    <tr>
-      <td></td>
-      <td></td>
-      <td class="head"> Balance:</td>
-      <td class="head"> &#x20b9;{{#each invoice}}
-        {{this.Balance}}
-        {{/each}}</td>
-    </tr>
-
-
-  </table>
-
-
-</body>
-
+      <tr>
+        <td></td>
+        <td></td>
+        <td class="head">Total:</td>
+        <td class="head">
+          &#x20b9; {{#object}} {{this.totalAmount}} {{/object}}
+        </td>
+      </tr>
+    </table>
+  </body>
 </html>

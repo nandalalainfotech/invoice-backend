@@ -14,46 +14,48 @@ invoiceRouter.post("/invoicedetail", async (request, response) => {
   }
 });
 invoiceRouter.get(
-  '/getInvoicedetail',
+  "/getInvoicedetail",
   expressAsyncHandler(async (req, res) => {
     const invoices = await Invoice.find();
     if (invoices) {
       res.send(invoices);
     } else {
-      res.status(404).send({ message: 'User Not Found' });
+      res.status(404).send({ message: "User Not Found" });
     }
   })
 );
-invoiceRouter.put("/updateInvoice/:id", expressAsyncHandler(async (req, res) => {
-  const invoiceUpdateId = req.params.id;
-  const invoiceupdate = await Invoice.findById(invoiceUpdateId);
-  if (invoiceupdate) {
-    invoiceupdate.clientName = req.body.clientName;
-    invoiceupdate.clientAddress = req.body.clientAddress;
-    invoiceupdate.clientEmail = req.body.clientEmail;
-    invoiceupdate.clientNo = req.body.clientNo;
-    invoiceupdate.invoiceNo = req.body.invoiceNo;
-    invoiceupdate.changeCurrency = req.body.changeCurrency;
-    invoiceupdate.createdDate = req.body.createdDate;
-    invoiceupdate.Duedate = req.body.Duedate;
-    invoiceupdate.test = req.body.test;
-    invoiceupdate.Tax = req.body.Tax;
-    invoiceupdate.Discount = req.body.Discount;
-    invoiceupdate.shipping = req.body.shipping;
-    invoiceupdate.Balance = req.body.Balance;
-    invoiceupdate.Amount = req.body.Amount;
-    invoiceupdate.Total = req.body.Total;
-    invoiceupdate.subtotal = req.body.subtotal;
-    invoiceupdate.Email = req.body.Email;
-    invoiceupdate.MobileNo = req.body.MobileNo;
-    invoiceupdate.Company = req.body.Company;
-    invoiceupdate.CompanyName = req.body.CompanyName;
-    const updateinvoice = await invoiceupdate.save();
-    res.send({ message: "Updated", orderdetail: updateinvoice });
-  } else {
-    res.status(404).send({ message: "Orderdetail Detail Not Found" });
-  }
-})
+invoiceRouter.put(
+  "/updateInvoice/:id",
+  expressAsyncHandler(async (req, res) => {
+    const invoiceUpdateId = req.params.id;
+    const invoiceupdate = await Invoice.findById(invoiceUpdateId);
+    if (invoiceupdate) {
+      invoiceupdate.clientName = req.body.clientName;
+      invoiceupdate.clientAddress = req.body.clientAddress;
+      invoiceupdate.clientEmail = req.body.clientEmail;
+      invoiceupdate.clientNo = req.body.clientNo;
+      invoiceupdate.invoiceNo = req.body.invoiceNo;
+      invoiceupdate.changeCurrency = req.body.changeCurrency;
+      invoiceupdate.createdDate = req.body.createdDate;
+      invoiceupdate.Duedate = req.body.Duedate;
+      invoiceupdate.test = req.body.test;
+      invoiceupdate.Tax = req.body.Tax;
+      invoiceupdate.Discount = req.body.Discount;
+      invoiceupdate.shipping = req.body.shipping;
+      invoiceupdate.Balance = req.body.Balance;
+      invoiceupdate.Amount = req.body.Amount;
+      invoiceupdate.Total = req.body.Total;
+      invoiceupdate.subtotal = req.body.subtotal;
+      invoiceupdate.Email = req.body.Email;
+      invoiceupdate.MobileNo = req.body.MobileNo;
+      invoiceupdate.Company = req.body.Company;
+      invoiceupdate.CompanyName = req.body.CompanyName;
+      const updateinvoice = await invoiceupdate.save();
+      res.send({ message: "Updated", orderdetail: updateinvoice });
+    } else {
+      res.status(404).send({ message: "Orderdetail Detail Not Found" });
+    }
+  })
 );
 invoiceRouter.get(
   "/downloaduser/:id",
@@ -83,8 +85,7 @@ invoiceRouter.get(
     };
     if (data?.length === 0) {
       return null;
-    }
-    else {
+    } else {
       await pdf
         .create(document, options)
         .then((pathRes) => {
@@ -102,7 +103,8 @@ invoiceRouter.get(
   })
 );
 invoiceRouter.get(
-  '/downloadALLPDF', expressAsyncHandler(async (req, res) => {
+  "/downloadALLPDF",
+  expressAsyncHandler(async (req, res) => {
     let datas = [];
     var usersDetails = await Invoice.find();
     let fileName = req.query?.templateName + ".html";
@@ -116,7 +118,7 @@ invoiceRouter.get(
       border: "10mm",
     };
     let data = lastObject;
-
+    console.log("data----.", data);
     let objects = {
       clientName: data.clientName,
       clientMobileNo: data.clientMobileNo,
@@ -131,7 +133,20 @@ invoiceRouter.get(
       companyemail: data.companyemail,
       companymobile: data.companymobile,
       billAddress: data.billAddress,
-      Image: data.Image
+      Image: data.Image,
+    };
+    let tableData = [];
+    for (let i = 0; i < data.products.length; i++) {
+      let obj = {
+        name: data.products[i].name,
+        quantity: data.products[i].quantity,
+        amount: data.products[i].amount,
+        name: data.products[i].name,
+        totalamount:
+          parseInt(data.products[i].quantity) *
+          parseInt(data.products[i].amount),
+      };
+      tableData.push(obj);
     }
 
     var document = {
@@ -139,15 +154,14 @@ invoiceRouter.get(
       template: html,
       context: {
         object: objects,
-        invoiceProducts: data.products,
-        taxes: data.taxes
+        invoiceProducts: tableData,
+        taxes: data.taxes,
       },
       path: "./output.pdf", // it is not required if type is buffer
     };
     if (data?.length === 0) {
       return null;
-    }
-    else {
+    } else {
       await pdf
         .create(document, options)
         .then((pathRes) => {
@@ -163,26 +177,31 @@ invoiceRouter.get(
         });
     }
   })
-)
-invoiceRouter.delete('/deleteInvoice/:id', expressAsyncHandler(async (req, res) => {
-  console.log("detelereq===>",req);
-  const productId = req.params.id;
-  const invoice = await Invoice.findById(productId);
-  if (invoice) {
-    const deletenewInvoice = await invoice.deleteOne();
-    res.send({ message: "Attributed Deleted", deleteAtt: deletenewInvoice });
-  } else {
-    res.status(404).send({ message: "Product Not Found" });
-  }
-}));
-invoiceRouter.get("/editInvoice/:id", expressAsyncHandler(async (req, res) => {
-  const invoiceDetailId = req.params.id;
-  const invoiceId = await Invoice.findById({ _id: invoiceDetailId });
-  if (invoiceId) {
-    res.send(invoiceId);
-  } else {
-    res.status(404).send({ message: "Invoice Detail Not Found" });
-  }
-})
+);
+invoiceRouter.delete(
+  "/deleteInvoice/:id",
+  expressAsyncHandler(async (req, res) => {
+    console.log("detelereq===>", req);
+    const productId = req.params.id;
+    const invoice = await Invoice.findById(productId);
+    if (invoice) {
+      const deletenewInvoice = await invoice.deleteOne();
+      res.send({ message: "Attributed Deleted", deleteAtt: deletenewInvoice });
+    } else {
+      res.status(404).send({ message: "Product Not Found" });
+    }
+  })
+);
+invoiceRouter.get(
+  "/editInvoice/:id",
+  expressAsyncHandler(async (req, res) => {
+    const invoiceDetailId = req.params.id;
+    const invoiceId = await Invoice.findById({ _id: invoiceDetailId });
+    if (invoiceId) {
+      res.send(invoiceId);
+    } else {
+      res.status(404).send({ message: "Invoice Detail Not Found" });
+    }
+  })
 );
 export default invoiceRouter;
