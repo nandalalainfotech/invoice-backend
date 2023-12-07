@@ -117,28 +117,20 @@ invoiceRouter.get(
     };
     let data = lastObject;
 
-
     let objects = {
-      clientname: data.clientName,
-      companyName: data.companyname,
-      mobileNo: data.MobileNo,
-      client: data.clientName,
-      clientemail: data.clientEmail,
-      clientaddress: data.clientAddress,
-      clientNumber: data.clientNo,
-      invoicenumber: data.invoiceNo,
-      changecurrency: data.changeCurrency,
-      createdate: data.createdDate,
-      duedate: data.dueDate,
-      tax: data.Tax,
-      discount: data.Discount,
-      Shipping: data.shipping,
-      balance: data.Balance,
-      amount: data.Amount,
-      total: data.Total,
+      clientName: data.clientName,
+      clientMobileNo: data.clientMobileNo,
+      clientEmail: data.clientEmail,
+      clientAddress: data.clientAddress,
+      invoiceNo: data.invoiceNo,
+      createdDate: data.createdDate,
+      dueDate: data.dueDate,
+      totalAmount: data.totalAmount,
       subTotal: data.subTotal,
-      email: data.Email,
-      companyAddress: data.Company,
+      companyname: data.companyname,
+      companyemail: data.companyemail,
+      companymobile: data.companymobile,
+      billAddress: data.billAddress,
       Image: data.Image
     }
 
@@ -147,8 +139,8 @@ invoiceRouter.get(
       template: html,
       context: {
         object: objects,
-        invoice: data,
         invoiceProducts: data.products,
+        taxes: data.taxes
       },
       path: "./output.pdf", // it is not required if type is buffer
     };
