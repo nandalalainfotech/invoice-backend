@@ -103,10 +103,10 @@ invoiceRouter.get(
   })
 );
 invoiceRouter.get(
-  "/downloadALLPDF",
+  "/downloadALLPDF/:id",
   expressAsyncHandler(async (req, res) => {
     let datas = [];
-    var usersDetails = await Invoice.find();
+    var usersDetails = await Invoice.find({user_id:req?.params?.id});
     let fileName = req.query?.templateName + ".html";
     var lastIndex = usersDetails.length - 1;
     var lastObject = usersDetails[lastIndex];
