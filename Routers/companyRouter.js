@@ -37,8 +37,8 @@ companyRouter.put('/updatecompany/:id', expressAsyncHandler(async (req, res) => 
 
 }))
 
-companyRouter.get('/companylist', expressAsyncHandler(async (req, res) => {
-  const client = await Company.find();
+companyRouter.get('/companylist/:id', expressAsyncHandler(async (req, res) => {
+  const client = await Company.find({ user_id: req.params.id });
   if (client) {
     res.send(client);
   } else {
