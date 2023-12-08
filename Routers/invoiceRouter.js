@@ -14,13 +14,13 @@ invoiceRouter.post("/invoicedetail", async (request, response) => {
   }
 });
 invoiceRouter.get(
-  "/getInvoicedetail",
+  "/getInvoicedetail/:id",
   expressAsyncHandler(async (req, res) => {
-    const invoices = await Invoice.find();
+    const invoices = await Invoice.find({ user_id: req.params.id });
     if (invoices) {
       res.send(invoices);
     } else {
-      res.status(404).send({ message: "User Not Found" });
+      res.status(404).send({ message: "Invoice Details Not Found" });
     }
   })
 );

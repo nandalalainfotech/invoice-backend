@@ -15,8 +15,8 @@ productRouter.post('/productSave', expressAsyncHandler(async (req, res) => {
     }
 }));
 
-productRouter.get('/getProduct', expressAsyncHandler(async (req, res) => {
-    const product = await Product.find();
+productRouter.get('/getProduct/:id', expressAsyncHandler(async (req, res) => {
+    const product = await Product.find({ user_id: req.params.id });
     if (product) {
         res.send(product);
     } else {

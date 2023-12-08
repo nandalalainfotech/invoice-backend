@@ -17,12 +17,13 @@ clientRouter.post('/clinetdetail', expressAsyncHandler(async (req, res) => {
   }
 }))
 
-clientRouter.get('/getclinet', expressAsyncHandler(async (req, res) => {
-  const client = await Clients.find();
+clientRouter.get('/getclinet/:id', expressAsyncHandler(async (req, res) => {
+  const client = await Clients.find({ user_id: req.params.id });
+
   if (client) {
     res.send(client);
   } else {
-    res.status(404).send({ message: 'User Not Found' });
+    res.status(404).send({ message: 'Client Details Not Found' });
   }
 })
 );
