@@ -18,7 +18,6 @@ clientRouter.post('/clinetdetail', expressAsyncHandler(async (req, res) => {
 }))
 
 clientRouter.get('/getclinet', expressAsyncHandler(async (req, res) => {
-
   const client = await Clients.find();
   if (client) {
     res.send(client);
@@ -29,7 +28,6 @@ clientRouter.get('/getclinet', expressAsyncHandler(async (req, res) => {
 );
 
 clientRouter.get('/singleclient/:id', expressAsyncHandler(async (req, res) => {
-
   const client = await Clients.findById(req.params.id);
   let sendData = {
     name: client.clientName,

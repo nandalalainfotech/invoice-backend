@@ -118,7 +118,6 @@ invoiceRouter.get(
       border: "10mm",
     };
     let data = lastObject;
-    console.log("data----.", data);
     let objects = {
       clientName: data.clientName,
       clientMobileNo: data.clientMobileNo,
@@ -181,7 +180,6 @@ invoiceRouter.get(
 invoiceRouter.delete(
   "/deleteInvoice/:id",
   expressAsyncHandler(async (req, res) => {
-    console.log("detelereq===>", req);
     const productId = req.params.id;
     const invoice = await Invoice.findById(productId);
     if (invoice) {
