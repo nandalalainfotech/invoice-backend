@@ -5,6 +5,7 @@ const InvoiceSchema = new mongoose.Schema({
     clientEmail: { type: String, required: false },
     clientMobileNo: { type: String, required: false },
     invoiceNo: { type: String, required: false },
+    poNumber:{ type: String, required: false },
     createdDate: { type: String, required: false },
     dueDate: { type: String, required: false },
     products: [],
