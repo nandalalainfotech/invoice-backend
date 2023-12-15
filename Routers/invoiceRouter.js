@@ -3,6 +3,7 @@ import expressAsyncHandler from "express-async-handler";
 import fs, { createReadStream } from "fs";
 import Invoice from "../Models/invoiceModel.js";
 import pdf from "dynamic-html-pdf";
+import ExternalUserInvoiceModel from "../Models/ExternalUserInvoiceModel.js";
 const invoiceRouter = express.Router();
 invoiceRouter.post("/invoicedetail", async (request, response) => {
   const invoice = new Invoice(request.body);
@@ -13,6 +14,19 @@ invoiceRouter.post("/invoicedetail", async (request, response) => {
     response.status(500).send(error);
   }
 });
+
+
+invoiceRouter.post("/ExternalUser", async (request, response) => {
+  const invoice = new ExternalUserInvoiceModel(request.body);
+  try {
+    await invoice.save();
+    response.send(invoice);
+  } catch (error) {
+    response.status(500).send(error);
+  }
+});
+
+
 invoiceRouter.get(
   "/getInvoicedetail/:id",
   expressAsyncHandler(async (req, res) => {
@@ -102,6 +116,83 @@ invoiceRouter.get(
     }
   })
 );
+
+invoiceRouter.get(
+  "/externalUserPDF/:id",
+  expressAsyncHandler(async (req, res) => {
+    let datas = [];
+    var usersDetails = await ExternalUserInvoiceModel.find({_id:req?.params?.id});
+    let fileName = req.query?.templateName + ".html";
+    var lastIndex = usersDetails.length - 1;
+    var lastObject = usersDetails[lastIndex];
+    datas.push(lastObject);
+    var html = fs.readFileSync(`pdfTemplates/${fileName}`, "utf8");
+    var options = {
+      format: "A4",
+      orientation: "portrait",
+      border: "10mm",
+    };
+    let data = lastObject;
+    let objects = {
+      clientName: data.clientName,
+      clientMobileNo: data.clientMobileNo,
+      clientEmail: data.clientEmail,
+      clientAddress: data.clientAddress,
+      invoiceNo: data.invoiceNo,
+      createdDate: data.createdDate,
+      dueDate: data.dueDate,
+      totalAmount: data.totalAmount,
+      subTotal: data.subTotal,
+      companyname: data.companyname,
+      companyemail: data.companyemail,
+      companymobile: data.companymobile,
+      billAddress: data.billAddress,
+      Image: data.Image,
+    };
+    let tableData = [];
+    for (let i = 0; i < data.products.length; i++) {
+      let obj = {
+        name: data.products[i].name,
+        quantity: data.products[i].quantity,
+        amount: data.products[i].amount,
+        name: data.products[i].name,
+        totalamount:
+          parseInt(data.products[i].quantity) *
+          parseInt(data.products[i].amount),
+      };
+      tableData.push(obj);
+    }
+
+    var document = {
+      type: "file", // 'file' or 'buffer'
+      template: html,
+      context: {
+        object: objects,
+        invoiceProducts: tableData,
+        taxes: data.taxes,
+      },
+      path: "./output.pdf", // it is not required if type is buffer
+    };
+    if (data?.length === 0) {
+      return null;
+    } else {
+      await pdf
+        .create(document, options)
+        .then((pathRes) => {
+          const filestream = createReadStream(pathRes.filename);
+          res.writeHead(200, {
+            "Content-Disposition": "attachment;filename=" + "purchasSlips.pdf",
+            "Content-Type": "application/pdf",
+          });
+          filestream.pipe(res);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+  })
+);
+
 invoiceRouter.get(
   "/downloadALLPDF/:id",
   expressAsyncHandler(async (req, res) => {
