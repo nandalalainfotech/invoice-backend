@@ -4,6 +4,7 @@ import fs, { createReadStream } from "fs";
 import Invoice from "../Models/invoiceModel.js";
 import pdf from "dynamic-html-pdf";
 import ExternalUserInvoiceModel from "../Models/ExternalUserInvoiceModel.js";
+import { log } from "console";
 const invoiceRouter = express.Router();
 invoiceRouter.post("/invoicedetail", async (request, response) => {
   const invoice = new Invoice(request.body);
@@ -133,6 +134,7 @@ invoiceRouter.get(
       border: "10mm",
     };
     let data = lastObject;
+    
     let objects = {
       clientName: data.clientName,
       clientMobileNo: data.clientMobileNo,
@@ -148,7 +150,9 @@ invoiceRouter.get(
       companymobile: data.companymobile,
       billAddress: data.billAddress,
       Image: data.Image,
+      formName:data.formName,
     };
+    console.log("objects----->",objects)
     let tableData = [];
     for (let i = 0; i < data.products.length; i++) {
       let obj = {

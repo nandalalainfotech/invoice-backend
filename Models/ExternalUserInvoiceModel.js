@@ -17,6 +17,7 @@ const ExternalUserInvoiceSchema = new mongoose.Schema({
     taxes: [],
     Image: { type: String, required: false },
     totalAmount:{ type: Number, required: false },
+    formName:{ type: String, required: false },
 });
 
 const ExternalUserInvoiceModel = mongoose.model("ExternalUserInvoice", ExternalUserInvoiceSchema);
