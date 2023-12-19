@@ -152,7 +152,6 @@ invoiceRouter.get(
       Image: data.Image,
       formName:data.formName,
     };
-    console.log("objects----->",objects)
     let tableData = [];
     for (let i = 0; i < data.products.length; i++) {
       let obj = {

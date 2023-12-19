@@ -39,12 +39,43 @@ userRouter.post('/register', expressAsyncHandler(async (req, res) => {
       password: bcrypt.hashSync(req.body.password),
     });
     const createdUser = await user.save();
+    if(createdUser) {
+      bcrypt.compare(req.body.email, req.body.email, async function (err, isMatch) {
+        var transporter = nodemailer.createTransport({
+          host: "smtp.gmail.com",
+          port: 465,
+          secure: true,
+          service: "gmail",
+          auth: {
+            user: process.env.SENDER_EMAIL,
+            pass: process.env.EMAIL_PASSWORD,
+          },
+        });
+        var mailOptions = {
+          from: process.env.SENDER_EMAIL,
+          to: req.body.email,
+          subject: "Invoice Registration!!",
+          html: `<h1 style="color: green">You have SuccessFully Registered!!</h1>`
+        };
+        transporter.sendMail(mailOptions, function (error, info) {
+          console.log("mailOptions", mailOptions);
+          if (error) {
+            console.log(error);
+          } else {
+            console.log("Email sent: " + info.response);
+          }
+        })
+      })
+    }
     res.send({
       id: createdUser.id,
       email: createdUser.email,
       password: createdUser.password,
   
     });
+
+
+    
   
   }
 
