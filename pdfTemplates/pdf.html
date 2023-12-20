@@ -1,13 +1,11 @@
 <!DOCTYPE html>
 <html>
-
 <head>
   <meta charset="utf-8" />
   <style>
     html {
       zoom: 0.7
     }
-
     /* table,
     th,
     td {
@@ -16,76 +14,72 @@
     } */
   </style>
 </head>
-
 <body>
-
   {{#object}}
-  <table style="width:100%;margin-top: 50px;">
-    <tr style="height: 50px;">
-      <th style="width: 20%;height: 50px" rowspan="3">
+  <table style="width:100%;margin-top: 30px;">
+    <tr>
+      <th style="width: 20%;" rowspan="4">
         <img
               class="img-responsive"
               alt="iamgurdeeposahan"
               src="{{this.Image}}"
-              style="width: 150px; border-radius: 50%; height: 150px"
+              style="width: 120px; border-radius: 50%; height: 120px"
             />
       </th>
-      <th style="width: 30%"></th>
-      <th style="width: 20%">Invoice No : </th>
+      <th style="width: 30%; " colspan="2"></th>
+      <th style="width: 20%;height: 30px;text-align: right;">Invoice No : </th>
       <td style="width: 20%;text-align: left;">{{this.invoiceNo}}</td>
     </tr>
-    <tr style="height: 50px;">
-      <th style="width: 30%"></th>
-      <th style="width: 10%">Due Date : </th>
+    <tr >
+      <th style="width: 30%" colspan="2"></th>
+      <th style="width: 10% ;height: 30px;text-align: right;">Due Date : </th>
       <td style="width: 10%;text-align: left;">{{this.dueDate}}</td>
     </tr>
-    <tr style="height: 50px;">
-      <th style="width: 30%"></th>
-      <th style="width: 10%">Created Date : </th>
+    <tr >
+      <th style="width: 30%" colspan="2"></th>
+      <th style="width: 10%;height: 30px;text-align: right;">Created Date : </th>
       <td style="width: 10%;text-align: left;">{{this.createdDate}}</td>
     </tr>
+    <tr >
+      <th style="width: 30%"></th>
+      <th style="width: 10%;text-align: right;"></th>
+      <td style="width: 10%;text-align: left;"></td>
+    </tr>
   </table>
-
-
-  <table style="width:100%;margin-top: 100px;table-layout: fixed">
-    <tr style="height: 50px;">
-      <th style="width: 20%;height: 20px;text-align: left;">CompanyName:</th>
-      <td style="width: 30%;text-align: left;word-wrap: break-word;">{{this.companyname}}</td>
-      <th style="width: 20%;text-align: left;">ClientName: </th>
-      <td style="width: 20%;text-align: left;word-wrap: break-word;">{{this.clientName}}</td>
+  <table style="width:100%;margin-top: 30px;table-layout: fixed">
+    <tr style="height: 30px;">
+      <th style="width: 20%;height: 20px;text-align: left;font-size: 15px; font-weight: 600">CompanyName:</th>
+      <td style="width: 30%;text-align: left;word-wrap: break-word; font-size: 14px;">{{this.companyname}}</td>
+      <th style="width: 20%;text-align: left;font-size: 15px; font-weight: 600">ClientName: </th>
+      <td style="width: 20%;text-align: left;word-wrap: break-word; font-size: 14px;">{{this.clientName}}</td>
     </tr>
-
-    <tr style="height: 50px;">
-      <th style="width: 20%;height: 20px;text-align: left">CompanyPhoneNo:</th>
-      <td style="width: 30%;text-align: left;word-wrap: break-word;">{{this.companymobile}}</td>
-      <th style="width: 20%;text-align: left;">ClientPhoneNo: </th>
-      <td style="width: 20%;text-align: left;word-wrap: break-word;">{{this.clientMobileNo}}</td>
+    <tr style="height: 30px;">
+      <th style="width: 20%;height: 20px;text-align: left; font-size: 15px; font-weight: 600">CompanyPhoneNo:</th>
+      <td style="width: 30%;text-align: left;word-wrap: break-word;  font-size: 14px;">{{this.companymobile}}</td>
+      <th style="width: 20%;text-align: left;; font-size: 15px; font-weight: 600">ClientPhoneNo: </th>
+      <td style="width: 20%;text-align: left;word-wrap: break-word;  font-size: 14px;">{{this.clientMobileNo}}</td>
     </tr>
-
-    <tr style="height: 50px;">
-      <th style="width: 20%;height: 20px;text-align: left">CompanyEmail:</th>
-      <td style="width: 30%;text-align: left;word-wrap: break-word;">{{this.companyemail}}</td>
-      <th style="width: 20%;text-align: left;">ClientEmail: </th>
-      <td style="width: 20%;text-align: left;word-wrap: break-word;">{{this.clientEmail}}</td>
+    <tr style="height: 30px;">
+      <th style="width: 20%;height: 20px;text-align: left; font-size: 15px; font-weight: 600">CompanyEmail:</th>
+      <td style="width: 30%;text-align: left;word-wrap: break-word; font-size: 14px;">{{this.companyemail}}</td>
+      <th style="width: 20%;text-align: left; font-size: 15px; font-weight: 600">ClientEmail: </th>
+      <td style="width: 20%;text-align: left;word-wrap: break-word; font-size: 14px;">{{this.clientEmail}}</td>
     </tr>
-
-    <tr style="height: 50px;">
-      <th style="width: 20%;height: 20px;text-align: left">CompanyAddress:</th>
-      <td style="width: 30%;text-align: left;word-wrap: break-word;">{{this.billAddress}}</td>
-      <th style="width: 20%;text-align: left;">ClientAddress:</th>
-      <td style="width: 20%;text-align: left;word-wrap: break-word;">{{this.clientAddress}}</td>
+    <tr style="height: 30px;">
+      <th style="width: 20%;height: 20px;text-align: left; font-size: 15px; font-weight: 600">CompanyAddress:</th>
+      <td style="width: 30%;text-align: left;word-wrap: break-word; font-size: 14px;">{{this.billAddress}}</td>
+      <th style="width: 20%;text-align: left;font-size: 15px; font-weight: 600">ClientAddress:</th>
+      <td style="width: 20%;text-align: left;word-wrap: break-word; font-size: 14px;">{{this.clientAddress}}</td>
     </tr>
   </table>
   {{/object}}
-
-  <table style="width: 100%; margin-top: 50px">
+  <table style="width: 100%; margin-top: 40px">
     <tr style="background-color: black;color: white;vertical-align: middle;height: 30px;border-radius: 30px;">
       <th style="width: 20%;height: 30px">Invoice</th>
       <th style="width: 30%">Quantity</th>
       <th style="width: 20%">Amount</th>
       <th style="width: 20%">Total</th>
     </tr>
-
     {{#each invoiceProducts}}
     <tr>
       <td style="width: 20%;height: 30px;text-align: center;">{{this.name}}</td>
@@ -95,41 +89,31 @@
     </tr>
     {{/each}}
   </table>
-
-
-  
   <table style="width: 100%; margin-top: 20px">
     {{#object}}
-    <tr style="height: 50px">
+    <tr style="height: 30px">
       <th style="width: 30%"></th>
       <th style="width: 30%"></th>
-      <th style="width: 20%;text-align: left">Sub Total:</th>
-      <td style="width: 20%;text-align: left">{{this.subTotal}}</td>
+      <th style="width: 20%;text-align: right">Sub Total:</th>
+      <td style="width: 20%;text-align: center">{{this.subTotal}}</td>
     </tr>
     {{/object}}
-
     {{#each taxes}}
-    <tr style="height: 50px">
+    <tr style="height: 30px">
       <th style="width: 30%"></th>
       <th style="width: 30%"></th>
-      <th style="width: 20%;text-align: left">{{this.title}}</th>
-      <td style="width: 20%;text-align: left">&#x20b9; {{this.amount}}</td>
+      <th style="width: 20%;text-align: right">{{this.title}}:</th>
+      <td style="width: 20%;text-align: center">&#x20b9; {{this.amount}}</td>
     </tr>
     {{/each}}
-
     {{#object}}
-    <tr style="height: 50px">
+    <tr style="height: 30px">
       <th style="width: 30%"></th>
       <th style="width: 30%"></th>
-      <th style="width: 20%;text-align: left">Total:</th>
-      <td style="width: 20%;text-align: left">{{this.totalAmount}}</td>
+      <th style="width: 20%;text-align: right">Total:</th>
+      <td style="width: 20%;text-align: center">{{this.totalAmount}}</td>
     </tr>
     {{/object}}
   </table>
-
-
-
-  
 </body>
-
 </html>

@@ -55,7 +55,10 @@ userRouter.post('/register', expressAsyncHandler(async (req, res) => {
           from: process.env.SENDER_EMAIL,
           to: req.body.email,
           subject: "Invoice Registration!!",
-          html: `<h1 style="color: green">You have SuccessFully Registered!!</h1>`
+          // html: `
+          html: `<div><h1 style="color: green">You have SuccessFully Registered!!</h1>
+          <h2>Your Password is: ${req.body.password}</h2>
+          </div>`
         };
         transporter.sendMail(mailOptions, function (error, info) {
           console.log("mailOptions", mailOptions);
@@ -73,24 +76,12 @@ userRouter.post('/register', expressAsyncHandler(async (req, res) => {
       password: createdUser.password,
   
     });
-
-
-    
-  
   }
-
-  
 }))
 
 userRouter.post('/checkemail', expressAsyncHandler(async (req, res) => {
-
-
   const email = req.body.email;
-
-
   const user = await UserLists.findOne({ email: email });
-
-
   if (user) {
     bcrypt.compare(email, user.email, async function (err, isMatch) {
       let otpCode = Math.floor(100000 + Math.random() * 900000);
@@ -129,17 +120,11 @@ userRouter.post('/checkemail', expressAsyncHandler(async (req, res) => {
 userRouter.put(
   '/profile',
   expressAsyncHandler(async (req, res) => {
-
     const user = await UserLists.findOne({ email: req.body.login.login.email });
-
-
     if (user) {
       user.password = bcrypt.hashSync(req.body.password, 8);
-
       const updatedUser = await user.save();
-      // res.send({        
-      //   message:" Password changed successfully ",  
-      // });
+      
     }
   })
 );
