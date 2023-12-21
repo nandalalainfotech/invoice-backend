@@ -141,7 +141,7 @@ invoiceRouter.get(
       clientEmail: data.clientEmail,
       clientAddress: data.clientAddress,
       invoiceNo: data.invoiceNo,
-      createdDate: data.createdDate,
+      TodayDate: data.TodayDate,
       dueDate: data.dueDate,
       totalAmount: data.totalAmount,
       subTotal: data.subTotal,
