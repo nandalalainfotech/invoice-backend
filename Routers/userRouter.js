@@ -34,9 +34,18 @@ userRouter.post('/register', expressAsyncHandler(async (req, res) => {
     res.status(404).send({ message: 'Your Email is already have been Registered' });
   }
   else {
+
+  var pass = "";
+  var str = "ABCDEFGHIJKLMNOPQRSTUVWXYZ" + "abcdefghijklmnopqrstuvwxyz0123456789@#$";
+  for (let i = 1; i <= 8; i++) {
+    var char = Math.floor(Math.random() * str.length + 1);
+    pass += str.charAt(char);
+  }
+
     const user = new UserLists({
       email: req.body.email,
-      password: bcrypt.hashSync(req.body.password),
+      password: bcrypt.hashSync(pass),
+      isVerified: req.body.isVerified,
     });
     const createdUser = await user.save();
     if(createdUser) {
@@ -55,13 +64,17 @@ userRouter.post('/register', expressAsyncHandler(async (req, res) => {
           from: process.env.SENDER_EMAIL,
           to: req.body.email,
           subject: "Invoice Registration!!",
-          // html: `
-          html: `<div><h1 style="color: green">You have SuccessFully Registered!!</h1>
-          <h2>Your Password is: ${req.body.password}</h2>
-          </div>`
+          html: `
+          <div>
+          <h1>Email Verification</h1>
+          <p>please click the link below to verify your email address.</p>
+          <a href="http://localhost:3001/verifyEmail/${createdUser._id}">Click here</a>
+
+          <h4>Your Password id ${pass} </h4>
+          </div>
+          `
         };
         transporter.sendMail(mailOptions, function (error, info) {
-          console.log("mailOptions", mailOptions);
           if (error) {
             console.log(error);
           } else {
@@ -73,11 +86,42 @@ userRouter.post('/register', expressAsyncHandler(async (req, res) => {
     res.send({
       id: createdUser.id,
       email: createdUser.email,
-      password: createdUser.password,
-  
+      isVerified: createdUser.isVerified
     });
+
+
+    
+  
   }
+
+  
 }))
+
+userRouter.put('/register/:id', expressAsyncHandler(async (req, res) => {
+  
+  const user = await UserLists.findById({ _id: req.params.id })
+
+  if (user) {
+    user.isVerified = req.body.isVerified
+    const updateinvoice = await user.save();
+    res.send(updateinvoice);
+  } else {
+    res.status(404).send({ message: "Orderdetail Detail Not Found" });
+  }
+  
+}))
+
+userRouter.get(
+  '/getUserId/:id',
+  expressAsyncHandler(async (req, res) => {
+    const user = await UserLists.findById({ _id : req.params.id});
+    if (user) {
+      res.send(user);
+    } else {
+      res.status(404).send({ message: 'User Not Found' });
+    }
+  })
+);
 
 userRouter.post('/checkemail', expressAsyncHandler(async (req, res) => {
   const email = req.body.email;
