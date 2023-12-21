@@ -10,19 +10,30 @@ const userRouter = express.Router();
 userRouter.post('/', expressAsyncHandler(async (req, res) => {
   const user = await UserLists.findOne({ email: req.body.email });
   if (user) {
-    if (bcrypt.compareSync(req.body.password, user.password)) {
-      res.send({
-        id: user.id,
-        fName: user.firstName,
-        email: user.email,
-        userrole:user.userRole,
-        success: true,
-      });
-      return;
+    if(user?.isVerified) {
+      if (bcrypt.compareSync(req.body.password, user.password)) {
+        res.send({
+          id: user.id,
+          fName: user.firstName,
+          email: user.email,
+          userrole: user.userRole,
+          isVerified: user.isVerified,
+          success: true,
+        });
+        return;
+      }
+      else {
+        res.status(401).send({ message: 'Your Password is Invalid' });
+      }
+    }
+    else {
+      res.status(401).send({ message: 'Please Verify Your Email Address' });
     }
 
   }
-  res.status(401).send({ message: 'Invalid Email or Password' });
+  else {
+    res.status(401).send({ message: 'Invalid Email or Password' });
+  }
 
 }
 ))
@@ -68,7 +79,7 @@ userRouter.post('/register', expressAsyncHandler(async (req, res) => {
           <div>
           <h1>Email Verification</h1>
           <p>please click the link below to verify your email address.</p>
-          <a href="http://localhost:3001/verifyEmail/${createdUser._id}">Click here</a>
+          <a href="https://invoicefree.in/verifyEmail/${createdUser._id}">Click here</a>
 
           <h4>Your Password id ${pass} </h4>
           </div>
@@ -104,7 +115,11 @@ userRouter.put('/register/:id', expressAsyncHandler(async (req, res) => {
   if (user) {
     user.isVerified = req.body.isVerified
     const updateinvoice = await user.save();
-    res.send(updateinvoice);
+    res.send({
+      id: updateinvoice._id,
+      email: updateinvoice.email,
+      isVerified: updateinvoice.isVerified
+    });
   } else {
     res.status(404).send({ message: "Orderdetail Detail Not Found" });
   }
