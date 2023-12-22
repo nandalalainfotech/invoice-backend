@@ -12,7 +12,7 @@ module.exports = {
             instance_var: '0',
             env: {
                 "PORT": 80,
-                "NODE_ENV": "prod"
+                "NODE_ENV": "production"
             },
             instances: 5, // can be max or any number of processes the cpu can handle
             exec_mode: "cluster"
