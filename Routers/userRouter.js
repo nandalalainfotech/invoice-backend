@@ -59,6 +59,11 @@ userRouter.post('/register', expressAsyncHandler(async (req, res) => {
       password: bcrypt.hashSync(pass),
       isVerified: req.body.isVerified,
     });
+
+    console.log("node--------->env", `NODE_ENV=${config.NODE_ENV}`);
+
+    
+
     const createdUser = await user.save();
     if(createdUser) {
       bcrypt.compare(req.body.email, req.body.email, async function (err, isMatch) {
@@ -72,20 +77,41 @@ userRouter.post('/register', expressAsyncHandler(async (req, res) => {
             pass: process.env.EMAIL_PASSWORD,
           },
         });
-        var mailOptions = {
-          from: process.env.SENDER_EMAIL,
-          to: req.body.email,
-          subject: "Invoice Registration!!",
-          html: `
-          <div>
-          <h1>Email Verification</h1>
-          <p>please click the link below to verify your email address.</p>
-          <a href="${config.HOST}:${config.PORT}/verifyEmail/${createdUser._id}">Click here</a>
+        if(config.NODE_ENV == "production") {
+          var mailOptions = {
+            from: process.env.SENDER_EMAIL,
+            to: req.body.email,
+            subject: "Invoice Registration!!",
+            html: `
+            <div>
+            <h1>Email Verification</h1>
+            <p>please click the link below to verify your email address.</p>
+            <a href="${config.HOST}/verifyEmail/${createdUser._id}">Click here</a>
+  
+            <h4>Your Password id ${pass} </h4>
+            </div>
+            `
+          };
+        }
+        else {
+          var mailOptions = {
+            from: process.env.SENDER_EMAIL,
+            to: req.body.email,
+            subject: "Invoice Registration!!",
+            html: `
+            <div>
+            <h1>Email Verification</h1>
+            <p>please click the link below to verify your email address.</p>
+            <a href="${config.HOST}:${config.PORT}/verifyEmail/${createdUser._id}">Click here</a>
+  
+            <h4>Your Password id ${pass} </h4>
+            </div>
+            `
+          };
+        }
 
-          <h4>Your Password id ${pass} </h4>
-          </div>
-          `
-        };
+        console.log("mailOptions--->", mailOptions);
+        
         transporter.sendMail(mailOptions, function (error, info) {
           if (error) {
             console.log(error);
