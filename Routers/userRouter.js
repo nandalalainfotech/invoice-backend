@@ -59,9 +59,6 @@ userRouter.post('/register', expressAsyncHandler(async (req, res) => {
       password: bcrypt.hashSync(pass),
       isVerified: req.body.isVerified,
     });
-
-    console.log("node--------->env", `NODE_ENV=${config.NODE_ENV}`);
-
     
 
     const createdUser = await user.save();
@@ -83,13 +80,83 @@ userRouter.post('/register', expressAsyncHandler(async (req, res) => {
             to: req.body.email,
             subject: "Invoice Registration!!",
             html: `
-            <div>
-            <h1>Email Verification</h1>
-            <p>please click the link below to verify your email address.</p>
-            <a href="${config.HOST}/verifyEmail/${createdUser._id}">Click here</a>
-  
-            <h4>Your Password id ${pass} </h4>
-            </div>
+            <!DOCTYPE html>
+              <html>
+                 <head>
+                  <style>
+                    .center {
+                         margin: auto;
+                         width: 70%;
+                         padding: 10px;
+                    }
+                    .heading {
+                      text-align: center;
+                      color: #6082B6
+                      font-size: "20px"
+                    }
+                    .right {
+                      position: absolute;
+                      left: 0px;
+                      width: 300px;
+                      border: 3px solid #73AD21;
+                      padding: 10px;
+                    }
+
+                    .desc {
+                      text-align: center;
+                      font-size: "18px";
+                      color: #7393B3
+                    }
+
+                    .mail {
+                      color: #7393B3;
+                      font-size: "20px";
+                    }
+
+                    .pass {
+                      color: #7393B3;
+                      font-size: "20px";
+                    }
+
+                   
+                   </style>
+                 </head>
+
+                 <body>
+                 <div class="center">
+                     <img src="cid:logo_nanda.png" style="width:100px;height:50px;"/>
+                     <h3 class="heading">Welcome to Nandalala Invoice</h3>
+
+                     <p class="desc"> Invoice Home is a time-saving tool for invoicing. <br>
+                     Simply fill out a template with the information you need,<br>
+                      then save, print, or email an invoice.
+                     </p>
+
+                    
+                  </div>
+
+                 <div class="right">
+                  <h3 class="heading">1. Email Verification: </h3>
+                 
+            <a href="${config.HOST}/verifyEmail/${createdUser._id}">
+            https://invoicefree.in
+            </a>
+
+                 </div>
+
+                 <div class="right">
+                  <h3 class="heading">2. Your Email:</h3>
+                  <p class="mail">${req.body.email}</p>
+                 </div>
+
+
+                 <div class="right">
+                  <h3 class="heading">3. Your Password:</h3>
+                  <p class="pass">${pass}</p>
+                 </div>
+
+                  </body>
+                  </html>
             `
           };
         }
@@ -98,14 +165,87 @@ userRouter.post('/register', expressAsyncHandler(async (req, res) => {
             from: process.env.SENDER_EMAIL,
             to: req.body.email,
             subject: "Invoice Registration!!",
+            attachments: [{
+              filename: 'logo_nanda.png',
+              path: 'logo_nanda.png',
+              cid: 'logo_nanda.png'
+            }],
             html: `
-            <div>
-            <h1>Email Verification</h1>
-            <p>please click the link below to verify your email address.</p>
-            <a href="${config.HOST}:${config.PORT}/verifyEmail/${createdUser._id}">Click here</a>
-  
-            <h4>Your Password id ${pass} </h4>
-            </div>
+            <!DOCTYPE html>
+              <html>
+                 <head>
+                  <style>
+                    .center {
+                         margin: auto;
+                         width: 70%;
+                         padding: 10px;
+                    }
+                    .heading {
+                      text-align: center;
+                      color: #6082B6
+                      font-size: "20px"
+                    }
+                    .right {
+                      position: absolute;
+                      left: 0px;
+                      width: 300px;
+                      border: 3px solid #73AD21;
+                      padding: 10px;
+                    }
+
+                    .desc {
+                      text-align: center;
+                      font-size: "18px";
+                      color: #7393B3
+                    }
+
+                    .mail {
+                      color: #7393B3;
+                      font-size: "20px";
+                    }
+
+                    .pass {
+                      color: #7393B3;
+                      font-size: "20px";
+                    }
+
+                   
+                   </style>
+                 </head>
+
+                 <body>
+                 <div class="center">
+                     <img src="cid:logo_nanda.png" style="width:100px;height:50px;"/>
+                     <h3 class="heading">Welcome to Nandalala Invoice</h3>
+
+                     <p class="desc"> Invoice Home is a time-saving tool for invoicing. <br>
+                     Simply fill out a template with the information you need,<br>
+                      then save, print, or email an invoice.
+                     </p>
+
+                    
+                  </div>
+
+                 <div class="right">
+                  <h3 class="heading">1. Email Verification: </h3>
+                  <a href="${config.HOST}:${config.PORT}/verifyEmail/${createdUser._id}">
+                     https://invoicefree.in
+                  </a>
+                 </div>
+
+                 <div class="right">
+                  <h3 class="heading">2. Your Email:</h3>
+                  <p class="mail">${req.body.email}</p>
+                 </div>
+
+
+                 <div class="right">
+                  <h3 class="heading">3. Your Password:</h3>
+                  <p class="pass">${pass}</p>
+                 </div>
+
+                  </body>
+                  </html>
             `
           };
         }
