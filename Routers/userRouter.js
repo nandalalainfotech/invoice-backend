@@ -79,6 +79,11 @@ userRouter.post('/register', expressAsyncHandler(async (req, res) => {
             from: process.env.SENDER_EMAIL,
             to: req.body.email,
             subject: "Invoice Registration!!",
+            attachments: [{
+              filename: 'logo_nanda.png',
+              path: 'logo_nanda.png',
+              cid: 'logo_nanda.png'
+            }],
             html: `
             <!DOCTYPE html>
               <html>
