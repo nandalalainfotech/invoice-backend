@@ -3,9 +3,9 @@
   "type": "module",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start:dev": "set NODE_ENV=development&& node server.js",
+    "start:prod": "set NODE_ENV=production&& node server.js"
   },
   "keywords": [],
   "author": "",

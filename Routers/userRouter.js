@@ -3,6 +3,7 @@ import expressAsyncHandler from 'express-async-handler';
 import UserLists from '../Models/userModel.js';
 import bcrypt from 'bcryptjs';
 import nodemailer from "nodemailer";
+import config from "../config.js"
 
 const userRouter = express.Router();
 
@@ -79,7 +80,7 @@ userRouter.post('/register', expressAsyncHandler(async (req, res) => {
           <div>
           <h1>Email Verification</h1>
           <p>please click the link below to verify your email address.</p>
-          <a href="https://invoicefree.in/verifyEmail/${createdUser._id}">Click here</a>
+          <a href="${config.HOST}:${config.PORT}/verifyEmail/${createdUser._id}">Click here</a>
 
           <h4>Your Password id ${pass} </h4>
           </div>

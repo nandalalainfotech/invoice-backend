@@ -9,6 +9,9 @@ import dotenv from "dotenv";
 import clientRouter from "./Routers/clientRouter.js";
 import companyRouter from "./Routers/companyRouter.js";
 import productRouter from "./Routers/productRouter.js";
+import config from "./config.js"
+
+console.log(`NODE_ENV=${config.NODE_ENV}`);
 
 dotenv.config();
 const app = express();
@@ -49,4 +52,5 @@ app.get("/message", (req, res) => {
 
 app.listen(8005, () => {
   console.log(`Server is running on port 8005.`);
+  console.log(`APP LISTENING ON ${config.HOST}:${config.PORT}`);
 });
