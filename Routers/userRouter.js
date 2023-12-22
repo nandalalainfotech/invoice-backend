@@ -109,8 +109,6 @@ userRouter.post('/register', expressAsyncHandler(async (req, res) => {
             `
           };
         }
-
-        console.log("mailOptions--->", mailOptions);
         
         transporter.sendMail(mailOptions, function (error, info) {
           if (error) {

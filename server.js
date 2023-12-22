@@ -52,5 +52,4 @@ app.get("/message", (req, res) => {
 
 app.listen(8005, () => {
   console.log(`Server is running on port 8005.`);
-  console.log(`APP LISTENING ON ${config.HOST}:${config.PORT}`);
 });
