@@ -1,4 +1,4 @@
-module.exports = {
+const ecosystem = {
     apps: [{
             name: "Invoice",
             script: "server.js",
@@ -19,3 +19,5 @@ module.exports = {
         }
     ]
   };
+
+  export default ecosystem;
