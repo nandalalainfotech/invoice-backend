@@ -14,7 +14,7 @@ module.exports = {
                 "PORT": 80,
                 "NODE_ENV": "production"
             },
-            instances: 5, // can be max or any number of processes the cpu can handle
+            instances: 1, // can be max or any number of processes the cpu can handle
             exec_mode: "cluster"
         }
     ]
