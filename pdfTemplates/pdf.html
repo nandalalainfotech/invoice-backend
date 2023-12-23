@@ -1,90 +1,128 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="utf-8" />
   <style>
     html {
       zoom: 0.7
     }
+
     /* table,
     th,
     td {
       border: 1px solid black;
       border-collapse: collapse;
     } */
+
+    span.form_text1>span {
+      display: inline-block;
+      min-width: 120px;
+    }
+
+    span.form_text2>span {
+      display: inline-block;
+      /* min-width: 130px; */
+      min-width: 140px;
+    }
+
+    span.form_text3>span {
+      display: inline-block;
+      min-width: 166px;
+    }
   </style>
 </head>
+
 <body>
   {{#object}}
   <table style="width:100%;margin-top: 30px;">
     <tr>
       <th style="width: 20%;" rowspan="4">
-        <img
-              class="img-responsive"
-              alt="iamgurdeeposahan"
-              src="{{this.Image}}"
-              style="width: 120px; border-radius: 50%; height: 120px"
-            />
+        <img class="img-responsive" alt="iamgurdeeposahan" src="{{this.Image}}"
+          style="width: 120px; border-radius: 50%; height: 120px" />
       </th>
       <th style="width: 30%; " colspan="2"></th>
-      <th style="width: 20%;height: 30px;text-align: right;">Invoice No : </th>
+      <th style="width: 20%;height: 25px;text-align: left;">
+        <span class="form_text1"><span>InvoiceNo</span>:</span>
+      </th>
       <td style="width: 20%;text-align: left;">{{this.invoiceNo}}</td>
     </tr>
-    <tr >
+    <tr>
       <th style="width: 30%" colspan="2"></th>
-      <th style="width: 10% ;height: 30px;text-align: right;">Due Date : </th>
-      <td style="width: 10%;text-align: left;">{{this.dueDate}}</td>
-    </tr>
-    <tr >
-      <th style="width: 30%" colspan="2"></th>
-      <th style="width: 10%;height: 30px;text-align: right;">Created Date : </th>
+      <th style="width: 10%;height: 25px;text-align: left;"> <span class="form_text1"><span>Created Date</span>:</span>
+      </th>
       <td style="width: 10%;text-align: left;">{{this.TodayDate}}</td>
     </tr>
-    <tr >
+    <tr>
+      <th style="width: 30%" colspan="2"></th>
+      <th style="width: 10% ;height: 25px;text-align: left;">
+        <span class="form_text1"><span>Due Date</span>:</span>
+      </th>
+      <td style="width: 10%;text-align: left;">{{this.dueDate}}</td>
+    </tr>
+
+    <tr>
       <th style="width: 30%"></th>
       <th style="width: 10%;text-align: right;"></th>
       <td style="width: 10%;text-align: left;"></td>
     </tr>
   </table>
   <table style="width:100%;margin-top: 30px;table-layout: fixed">
-    <tr style="height: 30px;">
-      <th style="width: 20%;height: 20px;text-align: left;font-size: 15px; font-weight: 600">CompanyName:</th>
-      <td style="width: 30%;text-align: left;word-wrap: break-word; font-size: 14px;">{{this.companyname}}</td>
-      <th style="width: 20%;text-align: left;font-size: 15px; font-weight: 600">ClientName: </th>
-      <td style="width: 20%;text-align: left;word-wrap: break-word; font-size: 14px;">{{this.clientName}}</td>
+    <tr style="height: 35px;">
+      <!-- <th style="width: 20%;height: 20px;text-align: left;font-size: 15px; font-weight: 600">CompanyName:</th> -->
+      <th style="width:25%;height: 25px;text-align: left;"> <span class="form_text3"><span>Company Name</span>:</span>
+
+      <td style="width:25%;text-align: left;word-wrap: break-word; font-size: 14px; text-transform: capitalize ;">{{this.companyname}}</td>
+      <!-- <th style="width: 20%;text-align: left;font-size: 15px; font-weight: 600">ClientName: </th> -->
+      <th style="width:23%;height: 25px;text-align: left;"> <span class="form_text2"><span>Client Name</span>:</span>
+
+      <td style="width:25%;text-align: left;word-wrap: break-word; font-size: 14px; text-transform: capitalize ;">{{this.clientName}}</td>
     </tr>
-    <tr style="height: 30px;">
-      <th style="width: 20%;height: 20px;text-align: left; font-size: 15px; font-weight: 600">CompanyPhoneNo:</th>
-      <td style="width: 30%;text-align: left;word-wrap: break-word;  font-size: 14px;">{{this.companymobile}}</td>
-      <th style="width: 20%;text-align: left;; font-size: 15px; font-weight: 600">ClientPhoneNo: </th>
-      <td style="width: 20%;text-align: left;word-wrap: break-word;  font-size: 14px;">{{this.clientMobileNo}}</td>
+    <tr style="height: 35px;">
+      <!-- <th style="width: 20%;height: 20px;text-align: left; font-size: 15px; font-weight: 600">CompanyPhoneNo:</th> -->
+      <th style="width:25%;height: 25px;text-align: left;"> <span class="form_text3"><span>Company
+            Mobile</span>:</span>
+      <td style="width:25%;text-align: left;word-wrap: break-word;  font-size: 14px;">{{this.companymobile}}</td>
+      <!-- <th style="width: 20%;text-align: left;; font-size: 15px; font-weight: 600">ClientPhoneNo: </th> -->
+      <th style="width: 23%;height: 25px;text-align: left;"> <span class="form_text2"><span>Client Mobile</span>:</span>
+      <td style="width: 25%;text-align: left;word-wrap: break-word;  font-size: 14px;">{{this.clientMobileNo}}</td>
     </tr>
-    <tr style="height: 30px;">
-      <th style="width: 20%;height: 20px;text-align: left; font-size: 15px; font-weight: 600">CompanyEmail:</th>
-      <td style="width: 30%;text-align: left;word-wrap: break-word; font-size: 14px;">{{this.companyemail}}</td>
-      <th style="width: 20%;text-align: left; font-size: 15px; font-weight: 600">ClientEmail: </th>
-      <td style="width: 20%;text-align: left;word-wrap: break-word; font-size: 14px;">{{this.clientEmail}}</td>
+    <tr style="height: 35px;">
+      <!-- <th style="width: 20%;height: 20px;text-align: left; font-size: 15px; font-weight: 600">CompanyEmail:</th> -->
+      <th style="width:25%;height: 25px;text-align: left;"> <span class="form_text3"><span>Company Email</span>:</span>
+
+      <td style="width:24%;text-align: left;word-wrap: break-word; font-size: 14px;position:fixed;">{{this.companyemail}}</td>
+      <!-- <th style="width: 20%;text-align: left; font-size: 15px; font-weight: 600">ClientEmail: </th> -->
+      <th style="width:23%;height: 25px;text-align: left;"> <span class="form_text2"><span>Client Email</span>:</span>
+
+      <td style="width:25%;text-align: left;word-wrap: break-word; font-size: 14px;position:fixed;">{{this.clientEmail}}</td>
     </tr>
-    <tr style="height: 30px;">
-      <th style="width: 20%;height: 20px;text-align: left; font-size: 15px; font-weight: 600">CompanyAddress:</th>
-      <td style="width: 30%;text-align: left;word-wrap: break-word; font-size: 14px;">{{this.billAddress}}</td>
-      <th style="width: 20%;text-align: left;font-size: 15px; font-weight: 600">ClientAddress:</th>
-      <td style="width: 20%;text-align: left;word-wrap: break-word; font-size: 14px;">{{this.clientAddress}}</td>
+    <tr style="height: 35px;">
+      <!-- <th style="width: 20%;height: 20px;text-align: left; font-size: 15px; font-weight: 600">CompanyAddress:</th> -->
+      <th style="width:25%;height: 25px;text-align: left;"> <span class="form_text3"><span>Company
+            Address</span>:</span>
+
+      <td style="width:22%;text-align: left;word-wrap: break-word; font-size: 14px;position:fixed;">{{this.billAddress}}</td>
+      <!-- <th style="width: 20%;text-align: left;font-size: 15px; font-weight: 600">ClientAddress:</th> -->
+      <th style="width:23%;height: 25px;text-align: left;"> <span class="form_text2"><span>Client
+            Address</span>:</span>
+
+      <td style="width:30%;text-align: left;word-wrap: break-word; font-size: 14px;position:fixed;">{{this.clientAddress}}</td>
     </tr>
   </table>
   {{/object}}
   <table style="width: 100%; margin-top: 40px">
     <tr style="background-color: black;color: white;vertical-align: middle;height: 30px;border-radius: 30px;">
-      <th style="width: 20%;height: 30px">Invoice</th>
+      <th style="width: 20%;height: 30px">Description</th>
       <th style="width: 30%">Quantity</th>
       <th style="width: 20%">Amount</th>
       <th style="width: 20%">Total</th>
     </tr>
     {{#each invoiceProducts}}
     <tr>
-      <td style="width: 20%;height: 30px;text-align: center;">{{this.name}}</td>
-      <td style="width: 30%;text-align: center;">{{this.quantity}}</td>
+      <td style="width: 20%;height: 30px;text-align: center; text-transform: capitalize ;">{{this.name}}</td>
       <td style="width: 20%;text-align: center;">{{this.amount}}</td>
+      <td style="width: 30%;text-align: center;">{{this.quantity}}</td>
       <td style="width: 20%;text-align: center;">{{this.totalamount}}</td>
     </tr>
     {{/each}}
@@ -94,7 +132,9 @@
     <tr style="height: 30px">
       <th style="width: 30%"></th>
       <th style="width: 30%"></th>
-      <th style="width: 20%;text-align: right">Sub Total:</th>
+      <!-- <th style="width: 20%;text-align: right">Sub Total:</th> -->
+      <th style="width: 20%;height: 25px;text-align: left;"> <span class="form_text1"><span>Sub Total</span>:</span>
+
       <td style="width: 20%;text-align: center">{{this.subTotal}}</td>
     </tr>
     {{/object}}
@@ -102,18 +142,21 @@
     <tr style="height: 30px">
       <th style="width: 30%"></th>
       <th style="width: 30%"></th>
-      <th style="width: 20%;text-align: right">{{this.title}}:</th>
-      <td style="width: 20%;text-align: center">&#x20b9; {{this.amount}}</td>
+      <th style="width: 20%;height: 25px;text-align: left;"> <span class="form_text1"><span>{{this.title}}</span>:</span>
+
+      <!-- <th style="width: 20%;text-align: right">:</th> -->
+      <td style="width: 20%;text-align: center"> {{this.amount}}</td>
     </tr>
     {{/each}}
     {{#object}}
     <tr style="height: 30px">
       <th style="width: 30%"></th>
       <th style="width: 30%"></th>
-      <th style="width: 20%;text-align: right">Total:</th>
+      <th style="width: 20%;height: 25px;text-align: left;"> <span class="form_text1"><span>Total</span>:</span>
       <td style="width: 20%;text-align: center">{{this.totalAmount}}</td>
     </tr>
     {{/object}}
   </table>
 </body>
+
 </html>
