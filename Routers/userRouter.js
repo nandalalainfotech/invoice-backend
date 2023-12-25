@@ -189,10 +189,10 @@ userRouter.post('/register', expressAsyncHandler(async (req, res) => {
                                                     <td colspan="4"
                                                       style="font-family:sans-serif;font-size:14px;border-radius:5px;width:600px;text-align:center;"
                                                       valign="top"> <a
-                                                        href="${config.HOST}:${config.PORT}/verifyEmail/${createdUser._id}"
+                                                        href="${config.HOST}/verifyEmail/${createdUser._id}"
                                                         style="display:inline-block;color:#ffffff;background-color:#00A787;border-radius:5px;box-sizing:border-box;text-decoration:none;font-size:14px;font-weight:bold;margin:0;padding:5px;border:1px solid #00A787"
                                                         target="_blank"
-                                                        data-saferedirecturl="${config.HOST}:${config.PORT}/verifyEmail/${createdUser._id}">
+                                                        data-saferedirecturl="${config.HOST}/verifyEmail/${createdUser._id}">
                                                         Verify</a>
                                                     </td>
                                                   </tr>
