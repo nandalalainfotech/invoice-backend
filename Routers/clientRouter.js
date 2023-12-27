@@ -49,10 +49,10 @@ clientRouter.put("/updateClient/:id", expressAsyncHandler(async (req, res) => {
   const clientsupdate = await Clients.findById(clientsUpdateId);
   if (clientsupdate) {
     clientsupdate.image = req.body.image,
-      clientsupdate.clientName = req.body.name,
-      clientsupdate.clientAddress = req.body.billingAddress,
-      clientsupdate.clientEmail = req.body.email,
-      clientsupdate.clientMobileNo = req.body.mobileNo,
+      clientsupdate.clientName = req.body.clientName,
+      clientsupdate.clientAddress = req.body.clientAddress,
+      clientsupdate.clientEmail = req.body.clientEmail,
+      clientsupdate.clientMobileNo = req.body.clientMobileNo,
       clientsupdate.user_id = req.body.user_id
     const updateinvoice = await clientsupdate.save();
     res.send(updateinvoice);
