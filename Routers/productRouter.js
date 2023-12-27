@@ -33,6 +33,8 @@ productRouter.put(
         product.productID = req.body.productID;
         product.name = req.body.name;
         product.amount = req.body.amount;
+        product.quantity = req.body.quantity;
+        product.Image = req.body.Image;
         product.user_id = req.body.user_id;
         const deleteproduct = await product.save();
         res.send(deleteproduct);
