@@ -6,7 +6,10 @@ const companyRouter = express.Router();
 
 
 companyRouter.post('/companySave', expressAsyncHandler(async (req, res) => {
+  console.log("req----->",req.body)
   const company = new Company(req.body);
+  console.log("company----->",company)
+
   try {
     await company.save();
     res.send(company);
@@ -18,13 +21,34 @@ companyRouter.post('/companySave', expressAsyncHandler(async (req, res) => {
 companyRouter.get('/getcompanydeatails/:id', expressAsyncHandler(async (req, res) => {
   
   const company = await Company.find({ user_id: req.params.id });
-  console.log("client-------->",company)
+  // console.log("client-------->",company)
   if (company) {
     res.send(company);
   } else {
     res.status(404).send({ message: 'User Not Found' });
   }
 }))
+
+companyRouter.put("/updateCompany/:id", expressAsyncHandler(async (req, res) => {
+  const companyUpdateId = req.params.id;
+  const companyUpdate = await Company.findById(companyUpdateId);
+  console.log("companyUpdate---->",companyUpdate);
+  if (companyUpdate) {
+    companyUpdate.Image = req.body.Image,
+    companyUpdate.name = req.body.name,
+    companyUpdate.companyaddress = req.body.companyaddress,
+    companyUpdate.companymail = req.body.companymail,
+    companyUpdate.mobileno = req.body.mobileno,
+    companyUpdate.user_id = req.body.user_id
+    const companyinvoice = await companyUpdate.save();
+    res.send(companyinvoice);
+    console.log("companyinvoice---->",companyinvoice);
+  } else {
+    res.status(404).send({ message: "Orderdetail Detail Not Found" });
+  }
+})
+);
+
 
 companyRouter.post('/companydeatails', expressAsyncHandler(async (req, res) => {
   const company = new Company(req.body);
