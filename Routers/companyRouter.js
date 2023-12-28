@@ -5,6 +5,27 @@ import Company from "../Models/companyModel.js";
 const companyRouter = express.Router();
 
 
+companyRouter.post('/companySave', expressAsyncHandler(async (req, res) => {
+  const company = new Company(req.body);
+  try {
+    await company.save();
+    res.send(company);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+}))
+
+companyRouter.get('/getcompanydeatails/:id', expressAsyncHandler(async (req, res) => {
+  
+  const company = await Company.find({ user_id: req.params.id });
+  console.log("client-------->",company)
+  if (company) {
+    res.send(company);
+  } else {
+    res.status(404).send({ message: 'User Not Found' });
+  }
+}))
+
 companyRouter.post('/companydeatails', expressAsyncHandler(async (req, res) => {
   const company = new Company(req.body);
 

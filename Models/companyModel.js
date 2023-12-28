@@ -1,11 +1,11 @@
 import mongoose from "mongoose";
 
 const CompanySchema = new mongoose.Schema({
-    image: { type: String, required: false },
-    companyName: { type: String, required: false },
-    companyEmail: { type: String, required: false },
+    name: { type: String, required: false },
+    mobileno: { type: String, required: false },
+    companymail: { type: String, required: false },
     companyMobile: { type: String, required: false },
-    billingAddress: { type: String, required: false },
+    companyaddress: { type: String, required: false },
     user_id: { type: String, required: false },
     
 });

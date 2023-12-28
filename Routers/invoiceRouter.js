@@ -199,7 +199,6 @@ invoiceRouter.get(
 invoiceRouter.get(
   "/downloadALLPDF/:id",
   expressAsyncHandler(async (req, res) => {
-    console.log("req------> ",req)
     let datas = [];
     var usersDetails = await Invoice.find({_id:req?.params?.id});
     let fileName = req.query?.templateName + ".html";
