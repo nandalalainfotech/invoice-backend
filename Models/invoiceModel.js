@@ -15,6 +15,7 @@ const InvoiceSchema = new mongoose.Schema({
     subTotal: { type: String, required: false },
     taxes: [],
     Image: { type: String, required: false },
+    terms: { type: String, required: false },
     totalAmount:{ type: Number, required: false },
     formName:{ type: String, required: false },
     user_id:{ type: String, required: false },
