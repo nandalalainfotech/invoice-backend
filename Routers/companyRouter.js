@@ -87,5 +87,17 @@ companyRouter.get('/companylist/:id', expressAsyncHandler(async (req, res) => {
 
 }))
 
+companyRouter.delete('/deleteCompany/:id', expressAsyncHandler(async (req, res) => {
+  const productId = req.params.id;
+  const invoice = await Company.findById(productId);
+  if (invoice) {
+    const deletenewInvoice = await invoice.deleteOne();
+  console.log("deletenewInvoice---->",deletenewInvoice);
+    res.send(deletenewInvoice);
+  } else {
+    res.status(404).send({ message: "Product Not Found" });
+  }
+}));
+
 
 export default companyRouter;
