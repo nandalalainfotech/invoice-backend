@@ -1,10 +1,11 @@
+import pdf from "dynamic-html-pdf";
 import express from "express";
 import expressAsyncHandler from "express-async-handler";
 import fs, { createReadStream } from "fs";
-import Invoice from "../Models/invoiceModel.js";
-import pdf from "dynamic-html-pdf";
+import nodemailer from "nodemailer";
 import ExternalUserInvoiceModel from "../Models/ExternalUserInvoiceModel.js";
-import { log } from "console";
+import Invoice from "../Models/invoiceModel.js";
+
 const invoiceRouter = express.Router();
 invoiceRouter.post("/invoicedetail", async (request, response) => {
   const invoice = new Invoice(request.body);
@@ -118,9 +119,7 @@ invoiceRouter.get(
   })
 );
 
-invoiceRouter.get(
-  "/externalUserPDF/:id",
-  expressAsyncHandler(async (req, res) => {
+invoiceRouter.get("/externalUserPDF/:id", expressAsyncHandler(async (req, res) => {
     let datas = [];
     var usersDetails = await ExternalUserInvoiceModel.find({_id:req?.params?.id});
     let fileName = req.query?.templateName + ".html";
@@ -196,9 +195,119 @@ invoiceRouter.get(
   })
 );
 
-invoiceRouter.get(
-  "/downloadALLPDF/:id",
-  expressAsyncHandler(async (req, res) => {
+invoiceRouter.post("/sendEmail/:id", expressAsyncHandler(async (req, res) => {
+
+  console.log("req---------->", req.body);
+  let datas = [];
+  var usersDetails = await Invoice.find({_id:req?.params?.id});
+  var lastIndex = usersDetails.length - 1;
+  var lastObject = usersDetails[lastIndex];
+  datas.push(lastObject);
+  var html = fs.readFileSync(`./pdfTemplates/pdf.html`, "utf8");
+  var options = {
+    format: "A4",
+    orientation: "portrait",
+    border: "10mm",
+  };
+  let data = lastObject;
+  
+  let objects = {
+    clientName: data.clientName,
+    clientMobileNo: data.clientMobileNo,
+    clientEmail: data.clientEmail,
+    clientAddress: data.clientAddress,
+    invoiceNo: data.invoiceNo,
+    TodayDate: data.TodayDate,
+    dueDate: data.dueDate,
+    totalAmount: data.totalAmount,
+    subTotal: data.subTotal,
+    companyname: data.companyname,
+    companyemail: data.companyemail,
+    companymobile: data.companymobile,
+    billAddress: data.billAddress,
+    Image: data.Image,
+    formName:data.formName,
+  };
+  let tableData = [];
+  for (let i = 0; i < data.products.length; i++) {
+    let obj = {
+      name: data.products[i].name,
+      quantity: data.products[i].quantity,
+      amount: data.products[i].amount,
+      name: data.products[i].name,
+      totalamount:
+        parseInt(data.products[i].quantity) *
+        parseInt(data.products[i].amount),
+    };
+    tableData.push(obj);
+  }
+
+  var document = {
+    type: "file", // 'file' or 'buffer'
+    template: html,
+    context: {
+      object: objects,
+      invoiceProducts: tableData,
+      taxes: data.taxes,
+    },
+    path: "./invoicepdf/Invoice.pdf", // it is not required if type is buffer
+  };
+  if (data?.length === 0) {
+    return null;
+  } else {
+    await pdf
+      .create(document, options)
+      .then((pathRes) => {
+        const filestream = createReadStream(pathRes.filename);
+        res.writeHead(200, {
+          "Content-Disposition": "attachment;filename=" + "purchasSlips.pdf",
+          "Content-Type": "application/pdf",
+        });
+        filestream.pipe(res);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
+
+  var transporter = nodemailer.createTransport({
+    host: "smtp.gmail.com",
+    port: 465,
+    secure: true,
+    service: "gmail",
+    auth: {
+      user: process.env.SENDER_EMAIL,
+      pass: process.env.EMAIL_PASSWORD,
+    },
+  });
+
+  var mailOptions = {
+    from: process.env.SENDER_EMAIL,
+    to: req.body.email,
+    subject: "Payment Success",
+    text: "Your Payment was Successfull",
+    html: `<div style="margin: 20%">Hii</div>`,
+
+    attachments: [
+      {
+        __filename: "Invoice.pdf",
+        path: "./invoicepdf/Invoice.pdf",
+      }
+    ]
+  };
+
+  transporter.sendMail(mailOptions, function (error, info) {
+    // console.log("mailOptions", mailOptions);
+    if (error) {
+      console.log(error);
+    } else {
+      console.log("Email sent: " + info.response);
+    }
+  });
+})
+);
+
+invoiceRouter.get("/downloadALLPDF/:id", expressAsyncHandler(async (req, res) => {
     let datas = [];
     var usersDetails = await Invoice.find({_id:req?.params?.id});
     let fileName = req.query?.templateName + ".html";
@@ -274,81 +383,7 @@ invoiceRouter.get(
   })
 );
 
-// invoiceRouter.get(
-//   "/downloadALLPDF/:id",
-//   expressAsyncHandler(async (req, res) => {
-//     let datas = [];
-//     var usersDetails = await Invoice.find({user_id:req?.params?.id});
-//     let fileName = req.query?.templateName + ".html";
-//     var lastIndex = usersDetails.length - 1;
-//     var lastObject = usersDetails[lastIndex];
-//     datas.push(lastObject);
-//     var html = fs.readFileSync(`pdfTemplates/${fileName}`, "utf8");
-//     var options = {
-//       format: "A4",
-//       orientation: "portrait",
-//       border: "10mm",
-//     };
-//     let data = lastObject;
-//     let objects = {
-//       clientName: data.clientName,
-//       clientMobileNo: data.clientMobileNo,
-//       clientEmail: data.clientEmail,
-//       clientAddress: data.clientAddress,
-//       invoiceNo: data.invoiceNo,
-//       createdDate: data.createdDate,
-//       dueDate: data.dueDate,
-//       totalAmount: data.totalAmount,
-//       subTotal: data.subTotal,
-//       companyname: data.companyname,
-//       companyemail: data.companyemail,
-//       companymobile: data.companymobile,
-//       billAddress: data.billAddress,
-//       Image: data.Image,
-//     };
-//     let tableData = [];
-//     for (let i = 0; i < data.products.length; i++) {
-//       let obj = {
-//         name: data.products[i].name,
-//         quantity: data.products[i].quantity,
-//         amount: data.products[i].amount,
-//         name: data.products[i].name,
-//         totalamount:
-//           parseInt(data.products[i].quantity) *
-//           parseInt(data.products[i].amount),
-//       };
-//       tableData.push(obj);
-//     }
 
-//     var document = {
-//       type: "file", // 'file' or 'buffer'
-//       template: html,
-//       context: {
-//         object: objects,
-//         invoiceProducts: tableData,
-//         taxes: data.taxes,
-//       },
-//       path: "./output.pdf", // it is not required if type is buffer
-//     };
-//     if (data?.length === 0) {
-//       return null;
-//     } else {
-//       await pdf
-//         .create(document, options)
-//         .then((pathRes) => {
-//           const filestream = createReadStream(pathRes.filename);
-//           res.writeHead(200, {
-//             "Content-Disposition": "attachment;filename=" + "purchasSlips.pdf",
-//             "Content-Type": "application/pdf",
-//           });
-//           filestream.pipe(res);
-//         })
-//         .catch((error) => {
-//           console.error(error);
-//         });
-//     }
-//   })
-// );
 invoiceRouter.delete(
   "/deleteInvoice/:id",
   expressAsyncHandler(async (req, res) => {
