@@ -284,9 +284,13 @@ invoiceRouter.post("/sendEmail/:id", expressAsyncHandler(async (req, res) => {
   var mailOptions = {
     from: process.env.SENDER_EMAIL,
     to: req.body.email,
-    subject: "Payment Success",
-    text: "Your Payment was Successfull",
-    html: `<div style="margin: 20%">Hii</div>`,
+    subject: "Invoice Generation",
+    html: `<div style="font-family:sans-serif;font-size:14px;line-height:1.4;margin:0;padding:0;background:#f1f8f1; border-radius:20px; ">
+            <div style="max-width:600px;margin:0px auto">
+      
+            </div>
+           </div>
+    `,
 
     attachments: [
       {
