@@ -80,14 +80,12 @@ companyRouter.put('/updatecompany/:id', expressAsyncHandler(async (req, res) => 
 
 companyRouter.get('/singlecompany/:id', expressAsyncHandler(async (req, res) => {
   const client = await Company.findById(req.params.id);
-  console.log("client----->",client);
   let sendData = {
     companyName: client.name,
     companyAddress: client.companyaddress,
     companyNo: client.mobileno,
     companyEmail: client.companymail,
   }
-  console.log("sendData------>",sendData);  
   if (sendData) {
     res.send(sendData);
   } else {
