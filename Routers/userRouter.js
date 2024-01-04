@@ -491,12 +491,12 @@ userRouter.post(
           subject: "Password Change OTP",
           html: ` <div
           class="container"
-          style="max-width: 90%; margin: auto; padding-top: 20px"
+          style="max-width: 90%; margin: auto; padding-top: 20px;"
           >
           <h2>Otp Verification.</h2>
           <h4>You are officially In ✔</h4>
-          <p style="margin-bottom: 30px;">Pleas enter OTP to get started</p>
-          <h1 style="font-size: 20px;">Your OTP: ${otpCode}</h1>
+          <p style="margin-bottom: 10px;">Pleas enter OTP to get started</p>
+          <h1 style="font-size: 14px;">Your OTP: <span style="font-size: 18px;font-weight: 700;color: black">${otpCode}</span></h1>
           </div>`,
         };
         transporter.sendMail(mailOptions, function (error, info) {
