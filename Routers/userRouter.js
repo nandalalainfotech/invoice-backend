@@ -510,10 +510,12 @@ userRouter.post(
 userRouter.put(
   "/profile",
   expressAsyncHandler(async (req, res) => {
-    const user = await UserLists.findOne({ email: req.body.login.login.email });
+    const user = await UserLists.findOne({ email: req.body.email });
     if (user) {
       user.password = bcrypt.hashSync(req.body.password, 8);
       const updatedUser = await user.save();
+      console.log("updatedUser-------->", updatedUser);
+      res.send({ message: "Updated SuccessFully" });
     }
   }),
 );

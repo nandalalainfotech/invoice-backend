@@ -7,7 +7,7 @@ const userSchema = new mongoose.Schema(
     isVerified: { type: Boolean, required: true },
     // userRole: { type: String, required: true, default: "user" },
     userRoleId: { type: mongoose.Schema.Types.ObjectID, ref: "Role" },
-    userRoleName: { type: String, required: true },
+    userRoleName: { type: String, required: false },
   },
   {
     timestamps: true,
