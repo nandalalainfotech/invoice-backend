@@ -190,7 +190,7 @@ userRouter.post(
             
                                           <h6
                                             style="font-family:sans-serif;font-size:14px;font-weight:normal;margin:0 0 15px;color:#222222">
-                                            Your Password: ${pass}
+                                            Your Password: <span style="font-size: 18px;color: black;font-weight: 700;">${pass}</span>
                                           </h6>
             
                                           <table cellpadding="0" cellspacing="0" class="m_-6399511225032040328btn-primary"
@@ -352,7 +352,7 @@ userRouter.post(
             
                                           <h6
                                             style="font-family:sans-serif;font-size:14px;font-weight:normal;margin:0 0 15px;color:#222222">
-                                            Your Password: ${pass}
+                                            Your Password: <span style="font-size: 18px;color: black;font-weight: 700;">${pass}</span>
                                           </h6>
             
                                           <table cellpadding="0" cellspacing="0" class="m_-6399511225032040328btn-primary"
@@ -489,7 +489,15 @@ userRouter.post(
           from: process.env.SENDER_EMAIL,
           to: email,
           subject: "Password Change OTP",
-          html: `<div><h1></h1><h2>Email: ${email}</h2><h2>OTP: ${otpCode}</h2></div>`,
+          html: ` <div
+          class="container"
+          style="max-width: 90%; margin: auto; padding-top: 20px"
+          >
+          <h2>Otp Verification.</h2>
+          <h4>You are officially In ✔</h4>
+          <p style="margin-bottom: 30px;">Pleas enter OTP to get started</p>
+          <h1 style="font-size: 20px;">Your OTP: ${otpCode}</h1>
+          </div>`,
         };
         transporter.sendMail(mailOptions, function (error, info) {
           console.log("mailOptions", mailOptions);
