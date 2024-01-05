@@ -120,6 +120,7 @@ invoiceRouter.get(
 );
 
 invoiceRouter.get("/externalUserPDF/:id", expressAsyncHandler(async (req, res) => {
+    console.log("req--------->", req.query.invoice);
     let datas = [];
     var usersDetails = await ExternalUserInvoiceModel.find({_id:req?.params?.id});
     let fileName = req.query?.templateName + ".html";
@@ -135,6 +136,7 @@ invoiceRouter.get("/externalUserPDF/:id", expressAsyncHandler(async (req, res) =
     let data = lastObject;
     
     let objects = {
+      invoice: req.query.invoice,
       clientName: data.clientName,
       clientMobileNo: data.clientMobileNo,
       clientEmail: data.clientEmail,
