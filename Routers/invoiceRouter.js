@@ -344,6 +344,11 @@ invoiceRouter.get("/downloadALLPDF/:id", expressAsyncHandler(async (req, res) =>
       billAddress: data.billAddress,
       Image: data.Image,
       formName:data.formName,
+      terms:data.terms,
+      bank:data.bank,
+    holder:data.holder, 
+    account:data.account, 
+    code:data.code,
     };
     let tableData = [];
     for (let i = 0; i < data.products.length; i++) {
