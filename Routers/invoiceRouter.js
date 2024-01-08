@@ -327,7 +327,7 @@ invoiceRouter.get("/downloadALLPDF/:id", expressAsyncHandler(async (req, res) =>
       border: "10mm",
     };
     let data = lastObject;
-    
+    console.log("data---->",data);
     let objects = {
       clientName: data.clientName,
       clientMobileNo: data.clientMobileNo,
@@ -349,6 +349,7 @@ invoiceRouter.get("/downloadALLPDF/:id", expressAsyncHandler(async (req, res) =>
     holder:data.holder, 
     account:data.account, 
     code:data.code,
+    gpayNo:data.gpayNo,
     };
     let tableData = [];
     for (let i = 0; i < data.products.length; i++) {

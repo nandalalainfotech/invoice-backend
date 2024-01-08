@@ -23,7 +23,8 @@ const InvoiceSchema = new mongoose.Schema({
     bank:{ type: String, required: false },
     holder:{ type: String, required: false },  
     account: { type: String, required: false }, 
-    code:  { type: String, required: false }
+    code:  { type: String, required: false },
+    gpayNo: { type: String, required: false },
 });
 const Invoice = mongoose.model("invoice", InvoiceSchema);
 export default Invoice;
