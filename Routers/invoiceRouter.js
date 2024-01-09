@@ -198,8 +198,6 @@ invoiceRouter.get("/externalUserPDF/:id", expressAsyncHandler(async (req, res) =
 );
 
 invoiceRouter.post("/sendEmail/:id", expressAsyncHandler(async (req, res) => {
-
-  console.log("req---------->", req.body);
   let datas = [];
   var usersDetails = await Invoice.find({_id:req?.params?.id});
   var lastIndex = usersDetails.length - 1;

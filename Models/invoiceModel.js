@@ -4,10 +4,20 @@ const InvoiceSchema = new mongoose.Schema({
     companyemail: { type: String, required: false },
     companymobile: { type: String, required: false },
     companyname: { type: String, required: false },
+    city: { type: String, required: false },
+    State: { type: String, required: false },
+    gst: { type: String, required: false },
+    postalCode: { type: String, required: false },
+    panNo: { type: String, required: false },
     clientName: { type: String, required: false },
     clientAddress: { type: String, required: false },
     clientEmail: { type: String, required: false },
     clientMobileNo: { type: String, required: false },
+    clientCity: { type: String, required: false },
+    clientGst: { type: String, required: false },
+    clientState: { type: String, required: false },
+    clientpanNo: { type: String, required: false },
+    clientpostalCode: { type: String, required: false },
     invoiceNo: { type: String, required: false },
     TodayDate: { type: String, required: false },
     dueDate: { type: String, required: false },
@@ -23,8 +33,7 @@ const InvoiceSchema = new mongoose.Schema({
     bank:{ type: String, required: false },
     holder:{ type: String, required: false },  
     account: { type: String, required: false }, 
-    code:  { type: String, required: false },
-    gpayNo: { type: String, required: false },
+    code:  { type: String, required: false }
 });
 const Invoice = mongoose.model("invoice", InvoiceSchema);
 export default Invoice;
